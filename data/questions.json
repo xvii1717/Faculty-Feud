@@ -1,0 +1,13 @@
+{
+  "rounds": [
+    {
+      "question": "Name a popular programming language that isn't python because python sucks",
+      "answers": [
+        {"text": "Python", "points": 40, "revealed": false},
+        {"text": "JavaScript", "points": 30, "revealed": false},
+        {"text": "Java", "points": 15, "revealed": false},
+        {"text": "C#", "points": 10, "revealed": false}
+      ]
+    }
+  ]
+}
