@@ -1,0 +1,15 @@
+{
+    "rounds": [
+        {
+            "question": "test q 2",
+            "answers": [
+                {
+                    "text": "as",
+                    "points": 2,
+                    "revealed": false
+                }
+            ],
+            "multiplier": 1
+        }
+    ]
+}

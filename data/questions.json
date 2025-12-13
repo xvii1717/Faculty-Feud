@@ -1,11 +1,11 @@
 {
     "rounds": [
         {
-            "question": "this is a really long question just because it needs to be really really long",
+            "question": "test question one",
             "answers": [
                 {
-                    "text": "to",
-                    "points": 2,
+                    "text": "another answer",
+                    "points": 20,
                     "revealed": false
                 }
             ],

@@ -1,8 +1,36 @@
 import json
 import os
 import sys
+import shutil
 import pygame
-DATA_PATH = os.path.join(os.path.dirname(__file__), "data", "questions.json")  # Path to questions data
+
+# Always use a user-writable location for questions.json
+def get_writable_questions_path():
+    data_dir = os.path.join(os.getcwd(), "data")
+    if not os.path.exists(data_dir):
+        os.makedirs(data_dir, exist_ok=True)
+    return os.path.join(data_dir, "questions.json")
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except AttributeError:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+
+# On first run, copy bundled questions.json to writable location if not present
+def ensure_questions_json():
+    writable_path = get_writable_questions_path()
+    if not os.path.exists(writable_path):
+        bundled_path = resource_path(os.path.join("data", "questions.json"))
+        if os.path.exists(bundled_path):
+            shutil.copy(bundled_path, writable_path)
+        else:
+            with open(writable_path, 'w') as f:
+                json.dump({"rounds": []}, f, indent=4)
+    return writable_path
+
+DATA_PATH = ensure_questions_json()
 ASSETS_DIR = os.path.join(os.path.dirname(__file__), "assets")  # Path to assets folder
 SOUNDS_DIR = os.path.join(os.path.dirname(__file__), "assets", "sounds")  # Path to assets folder
 
