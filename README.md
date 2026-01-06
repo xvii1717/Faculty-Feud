@@ -1,38 +1,75 @@
-# Faculty Feud — MVP Scaffold
+# JMHS Faculty Feud
+## 📂 Files
 
-This repository contains a minimal MVP scaffold for a Family Feud-style game.
+| File | Description |
+|------|-------------|
+| `setup.exe` | Run this **first** to add rounds, questions, answers, and point values. |
+| `game.exe` | Run this to play the game with teams and buzzers. |
+| `data/questions.json` | Stores all your rounds and answers (auto-created by setup). |
 
-Files added:
+---
 
-- `faculty_feud.py` — Pygame-based game skeleton. Controls:
-  - `A` = Team A buzz
-  - `L` = Team B buzz
-  - Click an answer box to reveal it (adds points to active team)
-  - `X` = give active team a strike
-  - `R` = reset round
-  - `ESC` = quit
-- `editor.py` — simple Tkinter editor to add rounds and answers to `data/questions.json`.
-- `data/questions.json` — sample round data.
-- `requirements.txt` — lists `pygame`.
+##  Setup: Adding Rounds
 
-Run locally (PowerShell):
-```powershell
-pip install -r requirements.txt
-python .\faculty_feud.py
-```
+Before playing, you **must run `setup.exe`** to add questions and point values.
 
-To edit/add questions:
-```powershell
-python .\editor.py
-```
+1. Double-click `setup.exe`.
+2. Click **Add Round**.
+3. Add a **multiplier** (optional).
+4. Enter the **question text**.
+5. Add **answers** one by one:
+   - Enter the answer text.
+   - Enter **points** for this answer.
+   - Make sure to press **save question** when done
+6. Repeat to add more rounds.
+7. Close the window when done. All data is saved automatically to `questions.json`.
 
-This is an initial scaffold implementing the MVP items:
-- editable questions (via `editor.py`)
-- two teams and scores
-- buzzer keys to decide who answers
-- reveal answers by clicking
-- strike key (`X`) increments strikes
+> Tip: You can come back later and add more rounds — the game will use all rounds in the file.
 
-Next steps: add persistent team names, nicer UI, fullscreen toggle, and buzzer hardware support.
-# Faculty-Feud
-The official Faculty Feud code for James Madison High School
+---
+
+##  Playing the Game
+
+1. Double-click `game.exe`.
+2. Enter the names of the **two teams** when prompted.
+3. Teams take turns **buzzing in** to answer questions.
+4. Each round will show a question. Teams try to guess answers.
+5. Points for each answer are added to the team score automatically.
+
+---
+
+###  Hotkeys / Controls
+
+
+ Buzz in using the left and right arrow keys |
+ Add an X for an incorrect answer | `X` | 
+ Reveal next answer | Space |
+
+---
+
+###  Gameplay Flow
+
+1. A round question appears.
+2. Teams try to guess the top answers.
+3. The first team to buzz can answer first.
+4. Correct answers are revealed, and points are added.
+5. Move to the next round until all rounds are finished.
+6. The team with the highest total score after all of the rounds **wins**! (or you can finish the game at any time by pressing esc)
+
+
+---
+
+##  Tips
+
+- Manually edit points at any time with the button on the top right corner of the screen!
+- Run `setup.exe` **before** `game.exe` — otherwise, the game will have no questions or points.
+- Make sure both `setup.exe` and `game.exe` are in the same folder as the `data` directory.
+- You can add rounds anytime — the game will pick up new questions automatically.
+- Keep your questions fun and varied for maximum enjoyment!
+
+---
+
+##  Requirements
+
+- Nothing extra needed — just double-click the `.exe` files.
+- These are **standalone executables**, so you don’t need Python or any other software to play.
