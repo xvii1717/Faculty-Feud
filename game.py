@@ -323,11 +323,11 @@ def main():
                         # Calculate box position
                         if i < 4:
                             x = screen.get_width()*0.2 - 10
-                            y = 290 + i*172
+                            y = (290 + i*172)*yScale
                         else:
                             g = i - 4
                             x = screen.get_width()*0.515
-                            y = 290 + g*172
+                            y = (290 + g*172)*yScale
                         w, h = 540, 153
                         if x <= mx <= x + w and y <= my <= y + h:
                             if(not round["answers"][i]["revealed"]):   
@@ -525,16 +525,16 @@ def main():
                     score_display = input_font.render(score_text, True, (255, 255, 255))
                     if i < 4:
                         pygame.draw.rect(screen, (65,105,245), ((screen.get_width()*0.5 - 435*0.5), 0, 160, 40*yScale))
-                        screen.blit(blank_box, (screen.get_width()*0.2 - 10, 290 + i*172*yScale))
+                        screen.blit(blank_box, (screen.get_width()*0.2 - 10, (290 + i*172)*yScale))
                         
-                        screen.blit(answer_display, (screen.get_width()*0.22, 340 + i*172*yScale))
-                        screen.blit(score_display, (screen.get_width()*0.45, 340 + i*172*yScale))
+                        screen.blit(answer_display, (screen.get_width()*0.22, (340 + i*172)*yScale))
+                        screen.blit(score_display, (screen.get_width()*0.45, (340 + i*172)*yScale))
                     else:
                         g = i - 4
                         pygame.draw.rect(screen, (65,105,245), (screen.get_width()*0.5 - 435*0.5, 0, 160, 40))
-                        screen.blit(blank_box, (screen.get_width()*0.515, 290 + g*172*yScale))
-                        screen.blit(answer_display, (screen.get_width()*0.545, 340 + g*172*yScale))
-                        screen.blit(score_display, (screen.get_width()*0.77, 340 + g*172*yScale))
+                        screen.blit(blank_box, (screen.get_width()*0.515, (290 + g*172)*yScale))
+                        screen.blit(answer_display, (screen.get_width()*0.545, (340 + g*172)*yScale))
+                        screen.blit(score_display, (screen.get_width()*0.77, (340 + g*172)*yScale))
 
 
                 for i in range(num_answers):
