@@ -524,18 +524,17 @@ def main():
                     answer_display = game_font.render(answer_text, True, (255, 255, 255))
                     score_display = input_font.render(score_text, True, (255, 255, 255))
                     if i < 4:
-                        pygame.draw.rect(screen, (65,105,245), (screen.get_width()*0.5 - 435*0.5, 0, 160, 40))
-                        screen.blit(blank_box, (screen.get_width()*0.2 - 10, 290 + i*172))
+                        pygame.draw.rect(screen, (65,105,245), ((screen.get_width()*0.5 - 435*0.5)*xScale, 0, 160*xScale, 40*yScale))
+                        screen.blit(blank_box, (screen.get_width()*0.2*xScale - 10, 290 + i*172*yScale))
                         
-                        screen.blit(answer_display, (screen.get_width()*0.22, 340 + i*172))
-                        screen.blit(score_display, (screen.get_width()*0.45, 340 + i*172))
+                        screen.blit(answer_display, (screen.get_width()*0.22*xScale, 340 + i*172*yScale))
+                        screen.blit(score_display, (screen.get_width()*0.45*xScale, 340 + i*172*yScale))
                     else:
                         g = i - 4
                         pygame.draw.rect(screen, (65,105,245), (screen.get_width()*0.5 - 435*0.5, 0, 160, 40))
-                        screen.blit(blank_box, (screen.get_width()*0.515, 290 + g*172))
-                        
-                        screen.blit(answer_display, (screen.get_width()*0.545, 340 + g*172))
-                        screen.blit(score_display, (screen.get_width()*0.77, 340 + g*172))
+                        screen.blit(blank_box, (screen.get_width()*0.515*xScale, 290 + g*172*yScale))
+                        screen.blit(answer_display, (screen.get_width()*0.545*xScale, 340 + g*172*yScale))
+                        screen.blit(score_display, (screen.get_width()*0.77*xScale, 340 + g*172*yScale))
 
 
                 for i in range(num_answers):
@@ -559,7 +558,7 @@ def main():
                             pygame.draw.rect(screen, (65,105,245), (screen.get_width()*0.5 - 435*0.5, 0, 160, 40))
                             screen.blit(number_box, (screen.get_width()*0.515, 290 + g*172))  
 
-                pygame.draw.rect(screen, (65,105,245), (0, 0,400 + len(team_names[activeTeam])*13,100 ))
+                pygame.draw.rect(screen, (65,105,245), (0, 0,(400 + len(team_names[activeTeam])*13)*xScale,100*yScale))
                 active_team_display = game_font.render("Active Team: " + team_names[activeTeam], True, (255, 255, 255))
                 screen.blit(active_team_display, (20, 35))
 
