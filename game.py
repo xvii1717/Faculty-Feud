@@ -3,7 +3,6 @@ import os
 import sys
 import shutil
 import pygame
-
 # Always use a user-writable location for questions.json
 def get_writable_questions_path():
     data_dir = os.path.join(os.getcwd(), "data")
@@ -178,7 +177,11 @@ def main():
     
     #size = (1280, 720)
     #screen = pygame.display.set_mode(size)
-    screen = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
+    screen = pygame.display.set_mode((0, 0), pygame.NOFRAME)
+    xScale = screen.get_width()/1707
+    yScale = screen.get_height()/1067
+
+    print(f"Screen size: {screen.get_width()}x{screen.get_height()}")
     clock = pygame.time.Clock()
 
     #welcome screen
@@ -190,25 +193,25 @@ def main():
     board_image = pygame.image.load(os.path.join(ASSETS_DIR, "family-feud-board.jpg")).convert()
     board_image = pygame.transform.smoothscale(board_image, (screen.get_width(), screen.get_height()))
     blank_box = pygame.image.load(os.path.join(ASSETS_DIR, "box_0.png")).convert()
-    blank_box = pygame.transform.smoothscale(blank_box, (540, 153))
+    blank_box = pygame.transform.smoothscale(blank_box, (540*xScale, 153*yScale))
 
     ##Cover boxes
     box_one = pygame.image.load(os.path.join(ASSETS_DIR, "box_1.png")).convert()
-    box_one = pygame.transform.smoothscale(box_one, (540, 153))
+    box_one = pygame.transform.smoothscale(box_one, (540*xScale , 153*yScale))
     box_two = pygame.image.load(os.path.join(ASSETS_DIR, "box_2.png")).convert()
-    box_two = pygame.transform.smoothscale(box_two, (540, 153))
+    box_two = pygame.transform.smoothscale(box_two, (540* xScale, 153*yScale))
     box_three = pygame.image.load(os.path.join(ASSETS_DIR, "box_3.png")).convert()
-    box_three = pygame.transform.smoothscale(box_three, (540, 153))
+    box_three = pygame.transform.smoothscale(box_three, (540*xScale, 153*yScale))
     box_four = pygame.image.load(os.path.join(ASSETS_DIR, "box_4.png")).convert()
-    box_four = pygame.transform.smoothscale(box_four, (540, 153))
+    box_four = pygame.transform.smoothscale(box_four, (540*xScale, 153*yScale))
     box_five = pygame.image.load(os.path.join(ASSETS_DIR, "box_5.png")).convert()
-    box_five = pygame.transform.smoothscale(box_five, (540, 153))
+    box_five = pygame.transform.smoothscale(box_five, (540*xScale, 153*yScale))
     box_six = pygame.image.load(os.path.join(ASSETS_DIR, "box_6.png")).convert()
-    box_six = pygame.transform.smoothscale(box_six, (540, 153))
+    box_six = pygame.transform.smoothscale(box_six, (540*xScale, 153*yScale))
     box_seven = pygame.image.load(os.path.join(ASSETS_DIR, "box_7.png")).convert()
-    box_seven = pygame.transform.smoothscale(box_seven, (540, 153))
+    box_seven = pygame.transform.smoothscale(box_seven, (540*xScale, 153*yScale))
     box_eight = pygame.image.load(os.path.join(ASSETS_DIR, "box_8.png")).convert()
-    box_eight = pygame.transform.smoothscale(box_eight, (540, 153))
+    box_eight = pygame.transform.smoothscale(box_eight, (540*xScale, 153*yScale))
 
     x_box = pygame.image.load(os.path.join(ASSETS_DIR, "fam-feud-x.png")).convert_alpha()
     x_box = pygame.transform.smoothscale(x_box, (540, 400))

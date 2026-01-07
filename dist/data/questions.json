@@ -1,11 +1,46 @@
 {
     "rounds": [
         {
-            "question": "test q 2",
+            "question": "test question 1",
             "answers": [
                 {
-                    "text": "as",
+                    "text": "eight",
+                    "points": 8,
+                    "revealed": false
+                },
+                {
+                    "text": "seven",
+                    "points": 7,
+                    "revealed": false
+                },
+                {
+                    "text": "six",
+                    "points": 6,
+                    "revealed": false
+                },
+                {
+                    "text": "five",
+                    "points": 5,
+                    "revealed": false
+                },
+                {
+                    "text": "four",
+                    "points": 4,
+                    "revealed": false
+                },
+                {
+                    "text": "three",
+                    "points": 3,
+                    "revealed": false
+                },
+                {
+                    "text": "two",
                     "points": 2,
+                    "revealed": false
+                },
+                {
+                    "text": "one",
+                    "points": 1,
                     "revealed": false
                 }
             ],
