@@ -30,8 +30,10 @@ def ensure_questions_json():
     return writable_path
 
 DATA_PATH = ensure_questions_json()
-ASSETS_DIR = os.path.join(os.path.dirname(__file__), "assets")  # Path to assets folder
-SOUNDS_DIR = os.path.join(os.path.dirname(__file__), "assets", "sounds")  # Path to assets folder
+ASSETS_DIR = resource_path("assets")  # Path to assets folder
+SOUNDS_DIR = resource_path(os.path.join("assets", "sounds"))  # Path to sounds folder
+
+# ...existing code...  # Path to assets folder
 
 class Team:
     """Represents a team in the game."""
@@ -164,6 +166,7 @@ def manual_score_screen(screen, team1, team2, font, input_font):
 
 def main():
     pygame.init()
+    DATA_PATH = ensure_questions_json()
 
     # initialize mixer (may fail on some systems; handle gracefully)
     mixer_available = True

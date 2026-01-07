@@ -1,46 +1,16 @@
 import json
 import tkinter as tk
 from tkinter import messagebox, simpledialog
-import sys
-import os
-import shutil
-
-def resource_path(relative_path):
-    """ Get absolute path to resource, works for dev and for PyInstaller """
-    try:
-        base_path = sys._MEIPASS
-    except AttributeError:
-        base_path = os.path.abspath(".")
-    return os.path.join(base_path, relative_path)
-
-# Always use a user-writable location for questions.json
-def get_writable_questions_path():
-    data_dir = os.path.join(os.getcwd(), "data")
-    if not os.path.exists(data_dir):
-        os.makedirs(data_dir, exist_ok=True)
-    return os.path.join(data_dir, "questions.json")
-
 
 def load_questions(file_path):
-    writable_path = get_writable_questions_path()
-    # If not present, copy from bundled resource
-    if not os.path.exists(writable_path):
-        bundled_path = resource_path(file_path)
-        if os.path.exists(bundled_path):
-            shutil.copy(bundled_path, writable_path)
-        else:
-            # If not found, create empty
-            with open(writable_path, 'w') as f:
-                json.dump({"rounds": []}, f, indent=4)
     try:
-        with open(writable_path, 'r') as file:
+        with open(file_path, 'r') as file:
             return json.load(file)
-    except Exception:
+    except FileNotFoundError:
         return {"rounds": []}
 
 def save_questions(file_path, data):
-    writable_path = get_writable_questions_path()
-    with open(writable_path, 'w') as file:
+    with open(file_path, 'w') as file:
         json.dump(data, file, indent=4)
 
 
@@ -144,9 +114,8 @@ class QuestionEditor(tk.Tk):
 
 def main():
     file_path = 'data/questions.json'
-    # Clear questions.json on each run (in writable location)
-    writable_path = get_writable_questions_path()
-    with open(writable_path, 'w') as f:
+    # Clear questions.json on each run
+    with open(file_path, 'w') as f:
         json.dump({"rounds": []}, f, indent=4)
     app = QuestionEditor(file_path)
     app.mainloop()
