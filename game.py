@@ -302,11 +302,11 @@ def main():
                         # Calculate box position
                         if i < 4:
                             x = screen.get_width()*0.2 - 10
-                            y = 290 + i*172
+                            y = (290 + i*172)*yScale
                         else:
                             g = i - 4
                             x = screen.get_width()*0.515
-                            y = 290 + g*172
+                            y = (290 + g*172)*yScale
                         w, h = 540, 153
                         if x <= mx <= x + w and y <= my <= y + h:
                             if(not round["answers"][i]["revealed"]):   
