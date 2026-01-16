@@ -41,9 +41,11 @@ Before playing, you **must run `setup.exe`** to add questions and point values.
 ###  Hotkeys / Controls
 
 
- Buzz in using the left and right arrow keys |
+ Buzz in using the left and right arrow keys 
  Add an X for an incorrect answer | `X` | 
- Reveal next answer | Space |
+ Press backspace to mark answer as incorrect but does not add it to team's total Xs (should be used ONLY after the initial buzz-in, use `X` instead while teams are playing)
+ Answer numbers correspond to numbers (ex. press 1 to reveal the top answer)
+ Move to next round after playing | Space |
 
 ---
 

@@ -247,6 +247,7 @@ def main():
     steal = False
     wrongs = 0
     sinceWrong = 100
+    sinceWrong2 = 100
     correctcounter = 0
     ##list of team names
     team_names = ["", ""]
@@ -286,56 +287,40 @@ def main():
                     ch = event.unicode
                     if ch.isprintable():
                         team_names[active_input] += ch
-            elif screencounter > 1 and  screencounter % 2 == 0 and event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT:
+            elif screencounter > 1 and screencounter % 3 == 2 and event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT:
+                screencounter += 1
+            elif screencounter % 3 == 0 and event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT:
                 screencounter += 1
                 activeTeam = 1
                 round_points = 0
                 wrongs = 0
-            elif screencounter > 1 and  screencounter % 2 == 0 and event.type == pygame.KEYDOWN and event.key == pygame.K_LEFT:
+            elif screencounter % 3 == 0 and event.type == pygame.KEYDOWN and event.key == pygame.K_LEFT:
                 screencounter += 1
                 activeTeam = 0
                 wrongs = 0
                 round_points = 0
-            elif screencounter > 1 and screencounter % 2 == 1:
-                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and steal == False:
+            elif screencounter > 1 and screencounter % 3 == 1:
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     mx, my = event.pos
+                    # Check if switch team button was clicked
+                    if 20 <= mx <= 220 and 75 <= my <= 125:
+                        activeTeam = 1 - activeTeam
+                elif event.type == pygame.KEYDOWN and event.key in [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_6, pygame.K_7, pygame.K_8]:
+                    # Convert key to box index (1-8 -> 0-7)
+                    key_map = {pygame.K_1: 0, pygame.K_2: 1, pygame.K_3: 2, pygame.K_4: 3, 
+                               pygame.K_5: 4, pygame.K_6: 5, pygame.K_7: 6, pygame.K_8: 7}
+                    box_index = key_map[event.key]
                     round = data["rounds"][question_counter - 1]
                     num_answers = len(round["answers"])
-                    for i in range(num_answers):
-                        # Calculate box position
-                        if i < 4:
-                            x = screen.get_width()*0.2 - 10
-                            y = (290 + i*172)*yScale
-                        else:
-                            g = i - 4
-                            x = screen.get_width()*0.515
-                            y = (290 + g*172)*yScale
-                        w, h = 540, 153
-                        if x <= mx <= x + w and y <= my <= y + h:
-                            if(not round["answers"][i]["revealed"]):   
-                                round["answers"][i]["revealed"] = True
-                                correctDing()
-                                round_points += round["answers"][i]["points"] * (1 if "multiplier" not in round else round["multiplier"])
-                                correctcounter += 1
-                                
-                elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1 and steal == True:
-                    mx, my = event.pos
-                    round = data["rounds"][question_counter - 1]
-                    num_answers = len(round["answers"])
-                    for i in range(num_answers):
-                        # Calculate box position
-                        if i < 4:
-                            x = screen.get_width()*0.2 - 10
-                            y = (290 + i*172)*yScale
-                        else:
-                            g = i - 4
-                            x = screen.get_width()*0.515
-                            y = (290 + g*172)*yScale
-                        w, h = 540, 153
-                        if x <= mx <= x + w and y <= my <= y + h:
-                            if(not round["answers"][i]["revealed"]):   
-                                round["answers"][i]["revealed"] = True
-                                correctDing()  
+                    if box_index < num_answers:
+                        if steal == False and not round["answers"][box_index]["revealed"]:
+                            round["answers"][box_index]["revealed"] = True
+                            correctDing()
+                            round_points += round["answers"][box_index]["points"] * (1 if "multiplier" not in round else round["multiplier"])
+                            correctcounter += 1
+                        elif steal == True and not round["answers"][box_index]["revealed"]:
+                            round["answers"][box_index]["revealed"] = True
+                            correctDing()
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_x and correctcounter < len(data["rounds"][question_counter - 1]["answers"]):
                     wrongs += 1
                     if wrongs >= 3:
@@ -345,6 +330,9 @@ def main():
                     if(wrongs < 5):
                         wrongBuzzer()
                         sinceWrong = 0
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_BACKSPACE:
+                    wrongBuzzer()
+                    sinceWrong2 = 0
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                     if steal == True or wrongs == 3 or correctcounter == len(data["rounds"][question_counter - 1]["answers"]):    
                         team1.score += round_points if activeTeam == 0 else 0
@@ -411,6 +399,19 @@ def main():
             if(edit == True):
                 manual_score_screen(screen, team1, team2, game_font, input_font)
                 edit = False
+            elif screencounter == 2 or (screencounter > 2 and screencounter % 4 == 2):
+                ##Question number screen (before intro)
+                screen.fill((0, 0, 0))
+                screen.blit(stage_image, (0, 0))
+                
+                question_num_text = question_font.render(f"Question {question_counter}", True, (255, 255, 255))
+                text_x = screen.get_width()*0.5 - question_num_text.get_width()*0.5
+                text_y = screen.get_height()*0.5 - question_num_text.get_height()*0.5
+                pygame.draw.rect(screen, (65, 105, 245), (text_x - 30, text_y - 20, question_num_text.get_width() + 60, question_num_text.get_height() + 40))
+                screen.blit(question_num_text, (text_x, text_y))
+                
+                instr_text = game_font.render("Press RIGHT ARROW to continue", True, (200, 200, 200))
+                screen.blit(instr_text, (screen.get_width()*0.5 - instr_text.get_width()*0.5, screen.get_height()*0.7))
             elif screencounter == 1000:   
                 screen.fill((0, 0, 0)) 
                 screen.blit(end_screen, (0, 0))
@@ -433,7 +434,8 @@ def main():
                     pygame.mixer.music.load(theme_audio)
                     pygame.mixer.music.play()
             
-            elif(screencounter % 2 == 0):
+            elif(screencounter % 4 == 3):
+                ##Question intro screen
                 screen.fill((0, 0, 0)) 
                 screen.blit(stage_image, (0, 0))
                 round = data["rounds"][question_counter - 1]
@@ -523,20 +525,39 @@ def main():
                 ##Make boxes with answers
                 for i in range(num_answers):
                     answer_text = round["answers"][i]["text"]
+                    if len(answer_text) > 28:
+                        index = 0
+                        for d in range(28):
+                            if answer_text[d] == " ":
+                                index = d
+                        text_one = answer_text[:index] 
+                        text_two = answer_text[index:]
+                        small_font = pygame.font.SysFont(None, 40)
+                        answer_display = small_font.render(text_one, True, (255, 255, 255))
+                        lower_answer_display = small_font.render(text_two, True, (255,255,255))
+                    else:
+                        text_one = answer_text
+                        text_two = " "
+                        answer_display = game_font.render(text_one, True, (255, 255, 255))
+                        lower_answer_display = game_font.render(text_two, True, (255,255,255))
+                        
+                    
                     score_text = str(round["answers"][i]["points"])
-                    answer_display = game_font.render(answer_text, True, (255, 255, 255))
                     score_display = input_font.render(score_text, True, (255, 255, 255))
                     if i < 4:
                         pygame.draw.rect(screen, (65,105,245), ((screen.get_width()*0.5 - 435*0.5), 0, 160, 40*yScale))
                         screen.blit(blank_box, (screen.get_width()*0.2 - 10, (290 + i*172)*yScale))
                         
                         screen.blit(answer_display, (screen.get_width()*0.22, (340 + i*172)*yScale))
+                        screen.blit(lower_answer_display, (screen.get_width()*0.22, (370 + i*172)*yScale))
+                        
                         screen.blit(score_display, (screen.get_width()*0.45, (340 + i*172)*yScale))
                     else:
                         g = i - 4
                         pygame.draw.rect(screen, (65,105,245), (screen.get_width()*0.5 - 435*0.5, 0, 160, 40))
                         screen.blit(blank_box, (screen.get_width()*0.515, (290 + g*172)*yScale))
                         screen.blit(answer_display, (screen.get_width()*0.545, (340 + g*172)*yScale))
+                        screen.blit(lower_answer_display, (screen.get_width()*0.545, (370 + g*172)*yScale))
                         screen.blit(score_display, (screen.get_width()*0.77, (340 + g*172)*yScale))
 
 
@@ -564,6 +585,12 @@ def main():
                 pygame.draw.rect(screen, (65,105,245), (0, 0,(400 + len(team_names[activeTeam])*13)*xScale,100*yScale))
                 active_team_display = game_font.render("Active Team: " + team_names[activeTeam], True, (255, 255, 255))
                 screen.blit(active_team_display, (20, 35))
+                
+                # Switch team button
+                switch_button_rect = pygame.Rect(20, 75, 200, 50)
+                pygame.draw.rect(screen, (100, 150, 255), switch_button_rect, border_radius=10)
+                switch_text = game_font.render("Switch Team", True, (255, 255, 255))
+                screen.blit(switch_text, (switch_button_rect.x + switch_button_rect.width//2 - switch_text.get_width()//2, switch_button_rect.y + switch_button_rect.height//2 - switch_text.get_height()//2))
 
                 ##Display Xs when wrong
                 if(sinceWrong < 80):    
@@ -580,6 +607,10 @@ def main():
                         screen.blit(x_box, (screen.get_width()*0.5 - x_box.get_width()*0.5, screen.get_height()*0.5 - x_box.get_height()*0.5))   
 
                     sinceWrong += 1
+                
+                if(sinceWrong2 < 80):
+                    screen.blit(x_box, (screen.get_width()*0.5 - x_box.get_width()*0.5, screen.get_height()*0.5 - x_box.get_height()*0.5))   
+                    sinceWrong2 +=1
         
 
 def correctDing():
