@@ -1,35 +1,32 @@
 {
     "rounds": [
         {
-            "question": "test",
+            "question": "one",
             "answers": [
                 {
-                    "text": "abc",
+                    "text": "one",
                     "points": 0,
                     "revealed": false
-                },
+                }
+            ],
+            "multiplier": 1
+        },
+        {
+            "question": "two",
+            "answers": [
                 {
-                    "text": "abcd",
+                    "text": "two",
                     "points": 0,
                     "revealed": false
-                },
+                }
+            ],
+            "multiplier": 1
+        },
+        {
+            "question": "three",
+            "answers": [
                 {
-                    "text": "ab",
-                    "points": 0,
-                    "revealed": false
-                },
-                {
-                    "text": "b",
-                    "points": 0,
-                    "revealed": false
-                },
-                {
-                    "text": "this is a long question so we can see the test",
-                    "points": 0,
-                    "revealed": false
-                },
-                {
-                    "text": "short question",
+                    "text": "three",
                     "points": 0,
                     "revealed": false
                 }

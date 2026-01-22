@@ -299,7 +299,7 @@ def main():
                 activeTeam = 0
                 wrongs = 0
                 round_points = 0
-            elif screencounter > 1 and screencounter % 3 == 1:
+            if screencounter > 1 and screencounter % 3 == 1:
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     mx, my = event.pos
                     # Check if switch team button was clicked
@@ -396,10 +396,11 @@ def main():
             pygame.display.flip()
             clock.tick(30)
         if screencounter > 1:
+            print(screencounter)
             if(edit == True):
                 manual_score_screen(screen, team1, team2, game_font, input_font)
                 edit = False
-            elif screencounter == 2 or (screencounter > 2 and screencounter % 4 == 2):
+            elif screencounter == 2 or (screencounter > 2 and screencounter % 3 == 2):
                 ##Question number screen (before intro)
                 screen.fill((0, 0, 0))
                 screen.blit(stage_image, (0, 0))
@@ -434,7 +435,8 @@ def main():
                     pygame.mixer.music.load(theme_audio)
                     pygame.mixer.music.play()
             
-            elif(screencounter % 4 == 3):
+            elif(screencounter % 3 == 0):
+                print(screencounter)
                 ##Question intro screen
                 screen.fill((0, 0, 0)) 
                 screen.blit(stage_image, (0, 0))
@@ -483,6 +485,8 @@ def main():
                 ##Go to next screen
                 
             else:
+                print(screencounter)
+
                 ## Playing screen (with the eight boxes)
                 screen.fill((0, 0, 0)) 
                 screen.blit(board_image, (0, 0))

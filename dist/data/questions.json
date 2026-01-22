@@ -1,46 +1,44 @@
 {
     "rounds": [
         {
-            "question": "test a",
+            "question": "one",
             "answers": [
                 {
-                    "text": "6",
-                    "points": 234,
+                    "text": "one",
+                    "points": 0,
                     "revealed": false
-                },
+                }
+            ],
+            "multiplier": 1
+        },
+        {
+            "question": "two",
+            "answers": [
                 {
-                    "text": "5",
-                    "points": 56,
+                    "text": "two",
+                    "points": 0,
                     "revealed": false
-                },
+                }
+            ],
+            "multiplier": 1
+        },
+        {
+            "question": "three",
+            "answers": [
                 {
-                    "text": "1",
-                    "points": 32,
+                    "text": "three",
+                    "points": 0,
                     "revealed": false
-                },
+                }
+            ],
+            "multiplier": 1
+        },
+        {
+            "question": "four",
+            "answers": [
                 {
-                    "text": "2",
-                    "points": 23,
-                    "revealed": false
-                },
-                {
-                    "text": "7",
-                    "points": 23,
-                    "revealed": false
-                },
-                {
-                    "text": "9",
-                    "points": 12,
-                    "revealed": false
-                },
-                {
-                    "text": "4",
-                    "points": 11,
-                    "revealed": false
-                },
-                {
-                    "text": "3",
-                    "points": 2,
+                    "text": "four",
+                    "points": 0,
                     "revealed": false
                 }
             ],
